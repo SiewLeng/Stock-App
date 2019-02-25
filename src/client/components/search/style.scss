@@ -1,0 +1,45 @@
+.name{
+ 	padding: 5px;
+ 	margin: 20px;
+}
+
+.label {
+	font-weight: bold;
+}
+
+.table {
+	width: 80%;
+}
+
+.table, .th, .td {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.th {
+	background-color: #00FFFF;
+}
+
+.button {
+	margin-left: 5px;
+}
+
+.mainDiv {
+	border: 2px solid red;
+	padding: 5px;
+}
+
+.div {
+	margin: 20px;
+}
+
+.header {
+	text-align: center;
+}
+
+.headerDiv {
+	background-color: yellow;
+	height: 60px;
+	padding: 8px;
+}

@@ -1,0 +1,60 @@
+.name{
+ 	padding: 5px;
+ 	margin: 20px;
+}
+
+.label {
+	font-weight: bold;
+}
+
+.table {
+	width: 85%;
+}
+
+.table, .th, .td {
+	padding: 5px;
+	border: 1px solid grey;
+	border-collapse: collapse;
+}
+
+.table {
+	margin-bottom: 20px;
+}
+.th {
+	background-color: #00FFFF;
+}
+
+.button {
+	margin-left: 5px;
+}
+
+.mainDiv {
+	border: 2px solid red;
+	padding: 5px;
+}
+
+.div {
+	margin: 20px;
+}
+
+.header {
+	text-align: center;
+}
+
+.headerDiv {
+	background-color: yellow;
+	height: 60px;
+	padding: 8px;
+}
+
+.formButton1 {
+	width: 120px;
+	font-size: 30px;
+	margin-left: 400px;
+}
+
+.formButton2 {
+	width: 120px;
+	font-size: 30px;
+	margin-left: 20px;
+}

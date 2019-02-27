@@ -6,16 +6,18 @@ import styles from './style.scss';
 
 import main_styles from '../../style.scss';
 
+import Sgdprice from '../sgdprice/sgdprice'
+
 class Price extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             listOfPrice: [],
         }
-        this.handleClick1 = this.handleClick1.bind(this);
+        this. handleClick1 = this.handleClick1.bind(this)
     }
 
-    handleClick1() {
+   handleClick1() {
         console.log(this.props.listOfDividend);
 
         let listOfSymbol = [];
@@ -74,7 +76,7 @@ class Price extends React.Component {
                     <td className={styles.td}> {item["buy_item"]["currency"] + " " +item["price"]} </td>
                     <td className={styles.td}> {item["buy_item"]["currency"] + " " +item["dividend"]} </td>
                     <td className={styles.td}>
-                        { (item["price"]+item["dividend"]-item["buy_item"]["price"]) / item["buy_item"]["price"] * 100 }
+                        {((item["price"]+item["dividend"]-item["buy_item"]["price"]) / item["buy_item"]["price"] * 100).toFixed(2) }
                     </td>
                 </tr>
             );
@@ -97,6 +99,7 @@ class Price extends React.Component {
                         </tr>
                             {itemsElements}
                     </table>}
+                    {this.state.listOfPrice.length > 0 && <Sgdprice listOfPrice={this.state.listOfPrice}/>}
                 </div>
         );
     }

@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS company;
 
 CREATE TABLE IF NOT EXISTS company (
-	id SERIAL,
+	company_id SERIAL,
 	symbol TEXT PRIMARY KEY,
 	name TEXT,
 	type TEXT,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS company (
 DROP TABLE IF EXISTS buy;
 
 CREATE TABLE IF NOT EXISTS buy (
-	id SERIAL PRIMARY KEY,
+	buy_id SERIAL PRIMARY KEY,
 	company_symbol TEXT,
 	quantity INTEGER,
 	purchase_date timestamp DEFAULT now(),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS buy (
 DROP TABLE IF EXISTS sold;
 
 CREATE TABLE IF NOT EXISTS sold (
-	id SERIAL PRIMARY KEY,
+	sold_id SERIAL PRIMARY KEY,
 	company_id INTEGER,
 	quantity INTEGER,
 	purchase_date timestamp,
@@ -38,5 +38,7 @@ CREATE TABLE IF NOT EXISTS sold (
 	sold_date timestamp DEFAULT now(),
 	sold_date_zone timestamptz DEFAULT now(),
 	sold_price_sgd real,
-	sold_price real
+	sold_price real,
+	dividend real,
+	dividend_sgd real
 );

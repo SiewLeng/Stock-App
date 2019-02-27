@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 
-import Counter from './components/counter/counter';
+import Portfolio from './components/portfolio/portfolio';
 import Search from './components/search/search';
 
 class App extends React.Component {
@@ -38,7 +38,7 @@ class App extends React.Component {
                     {this.state.showSearch && <Search/>}
                 </div>
                 <div>
-                    {this.state.showPortfolio && <Counter message={this.state.message}/>}
+                    {this.state.showPortfolio && <Portfolio/>}
                 </div>
             </div>
         );

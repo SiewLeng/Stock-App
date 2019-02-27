@@ -5,16 +5,22 @@
  */
 module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
+    const get = (callback) => {
+        let queryString = "SELECT * FROM buy INNER JOIN company ON (buy.company_symbol = company.symbol) WHERE buy.buy_id > 0";
+        dbPoolInstance.query(queryString, (err, queryResult) => {
+            callback(err, queryResult);
+        })
+    };
 
     const create = (symbol, price, priceSGD, numOfStock, company, callback) => {
 
-        const queryString = `SELECT * FROM company WHERE symbol = $1`;
-        const values = [symbol];
+        let queryString = `SELECT * FROM company WHERE symbol = $1`;
+        let values = [symbol];
         dbPoolInstance.query(queryString, values, (err, queryResult) => {
             if (queryResult.rows.length == 0) {
-                const queryString1 = `INSERT INTO company (symbol, name, type, region, market_open, market_close, timezone, currency)
+                let queryString1 = `INSERT INTO company (symbol, name, type, region, market_open, market_close, timezone, currency)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
-                const values1 = [
+                let values1 = [
                     company["symbol"],
                     company["name"],
                     company["type"],
@@ -28,14 +34,14 @@ module.exports = (dbPoolInstance) => {
             }
         });
 
-        const queryString2 = `INSERT INTO buy (company_symbol, quantity, price, price_sgd)
+        let queryString2 = `INSERT INTO buy (company_symbol, quantity, price, price_sgd)
             VALUES ($1, $2, $3, $4)`;
-            const values2 = [
-                symbol,
-                numOfStock,
-                parseFloat(price),
-                parseFloat(priceSGD)
-            ];
+        let values2 = [
+            symbol,
+            numOfStock,
+            parseFloat(price),
+            parseFloat(priceSGD)
+        ];
         dbPoolInstance.query(queryString2, values2, (err, queryResult) => {
             callback(err, queryResult);
         });
@@ -43,5 +49,6 @@ module.exports = (dbPoolInstance) => {
 
     return {
         create,
+        get,
     };
 }

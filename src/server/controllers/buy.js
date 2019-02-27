@@ -1,13 +1,16 @@
 const request = require('request');
 
 module.exports = (db) => {
-    let apiget = (request, response) => {
-        const stuff = {
-        banana: 'oranges',
-        kiwi: 'apple'
-        };
-
-        response.send(stuff);
+    let get = (request, response) => {
+        db.buy.get((error, queryResult) => {
+            if (error) {
+                console.error('error getting buy:', error);
+                response.sendStatus(500);
+            }
+            else {
+                response.send(queryResult.rows);
+            }
+        })
     };
 
     let create = (req, res) => {
@@ -53,6 +56,6 @@ module.exports = (db) => {
 
     return {
         create: create,
-        apiget: apiget
+        get: get
     };
 };

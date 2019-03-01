@@ -1,34 +1,35 @@
-const pg = require('pg');
-const buy = require('./models/buy');
-const url = require('url');
+const pg = require("pg");
+const buy = require("./models/buy");
+const sell = require("./models/sell");
+const url = require("url");
 
 var configs;
 
 if (process.env.DATABASE_URL) {
   const params = url.parse(process.env.DATABASE_URL);
-  const auth = params.auth.split(':');
+  const auth = params.auth.split(":");
 
   configs = {
     user: auth[0],
     password: auth[1],
     host: params.hostname,
     port: params.port,
-    database: params.pathname.split('/')[1],
+    database: params.pathname.split("/")[1],
     ssl: true
   };
 } else {
   configs = {
-    user: 'apple',
-    host: '127.0.0.1',
-    database: 'stock_app',
+    user: "apple",
+    host: "127.0.0.1",
+    database: "stock_app",
     port: 5432
   };
 }
 
 const pool = new pg.Pool(configs);
 
-pool.on('error', function(err) {
-  console.log('idle client error', err.message, err.stack);
+pool.on("error", function(err) {
+  console.log("idle client error", err.message, err.stack);
 });
 
 module.exports = {
@@ -36,7 +37,7 @@ module.exports = {
    * ADD APP MODELS HERE
    */
   buy: buy(pool),
-
+  sell: sell(pool),
   //make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);

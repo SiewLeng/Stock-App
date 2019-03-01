@@ -6,13 +6,19 @@ import styles from './style.scss';
 
 import main_styles from '../../style.scss';
 
+import Sellform from '../sellform/sellform';
+
 class Sgdprice extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             listOfSgdPrice: [],
+            sellItem:{},
+            showSellForm: false,
         }
         this.handleClick1 = this.handleClick1.bind(this);
+        this.handleClick2 = this.handleClick2.bind(this);
+        this.closeSellForm = this.closeSellForm.bind(this);
     }
 
     handleClick1() {
@@ -30,7 +36,6 @@ class Sgdprice extends React.Component {
                 listOfCurrency.push(this.props.listOfPrice[i]["buy_item"]["currency"]);
             }
         }
-
 
         let reactThis = this;
 
@@ -61,25 +66,55 @@ class Sgdprice extends React.Component {
 
     }
 
+    handleClick2(item) {
+        this.setState({showSellForm: true});
+        this.setState({sellItem: Object.assign({},item)});
+    }
+
+    closeSellForm() {
+        this.setState({showSellForm: false});
+    }
+
     render() {
 
         let itemsElements = this.state.listOfSgdPrice.map( (item, index) => {
             return (
                 <tr key={index}>
-                    <td className={styles.td}> {item["buy_item"]["company_symbol"]} </td>
-                    <td className={styles.td}> {item["buy_item"]["purchase_date"].substring(0, 10)} </td>
-                    <td className={styles.td}> {item["buy_item"]["quantity"]} </td>
-                    <td className={styles.td}> {item["buy_item"]["currency"] + " " +item["buy_item"]["price"]} </td>
-                    <td className={styles.td}> {"SGD " +item["buy_item"]["price_sgd"]} </td>
-                    <td className={styles.td}> {item["buy_item"]["currency"] + " " +item["price"]} </td>
-                    <td className={styles.td}> {"SGD " + " " +((item["price"] * item["exchange_rate"]).toFixed(2))} </td>
-                    <td className={styles.td}> {item["buy_item"]["currency"] + " " +item["dividend"]} </td>
-                    <td className={styles.td}> {"SGD " + " " +((item["dividend"] * item["exchange_rate"]).toFixed(2))} </td>
                     <td className={styles.td}>
-                        { "( " + item["buy_item"]["currency"] + " )\n" + ((((item["price"]+item["dividend"]-item["buy_item"]["price"]) / item["buy_item"]["price"] * 100)).toFixed(2)) }
+                        {item["buy_item"]["company_symbol"]}
                     </td>
                     <td className={styles.td}>
-                        { "(SGD)\n" + (((item["buy_item"]["price_sgd"]+(item["dividend"] -item["buy_item"]["price"])* item["exchange_rate"]) / item["buy_item"]["price_sgd"] * 100).toFixed(2)) }
+                        {item["buy_item"]["purchase_date"].substring(0, 10)}
+                    </td>
+                    <td className={styles.td}>
+                        {item["buy_item"]["quantity"]}
+                    </td>
+                    <td className={styles.td}>
+                        {item["buy_item"]["currency"] + " " +item["buy_item"]["price"]}
+                    </td>
+                    <td className={styles.td}>
+                        {"SGD " +item["buy_item"]["price_sgd"]}
+                    </td>
+                    <td className={styles.td}>
+                        {item["buy_item"]["currency"] + " " +item["price"]}
+                    </td>
+                    <td className={styles.td}>
+                        {"SGD " + " " + (item["price"] * item["exchange_rate"]).toFixed(2)}
+                    </td>
+                    <td className={styles.td}>
+                        {item["buy_item"]["currency"] + " " +item["dividend"]}
+                    </td>
+                    <td className={styles.td}>
+                        {"SGD " + " " +(item["dividend"] * item["exchange_rate"]).toFixed(2)}
+                    </td>
+                    <td className={styles.td}>
+                        { "(" + item["buy_item"]["currency"] + ")\n" + ((((item["price"]+item["dividend"]-item["buy_item"]["price"]) / item["buy_item"]["price"] * 100)).toFixed(2)) }
+                    </td>
+                    <td className={styles.td}>
+                        { "(SGD)\n" + (((item["price"]+item["dividend"]) * item["exchange_rate"] -item["buy_item"]["price_sgd"]) / item["buy_item"]["price_sgd"] *100).toFixed(2) }
+                    </td>
+                    <td>
+                        <button onClick={()=>this.handleClick2(item)}> Sell </button>
                     </td>
                 </tr>
             );
@@ -106,6 +141,7 @@ class Sgdprice extends React.Component {
                         </tr>
                             {itemsElements}
                     </table>}
+                    {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm}/>}
                 </div>
         );
     }

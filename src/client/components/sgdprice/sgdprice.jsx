@@ -22,7 +22,7 @@ class Sgdprice extends React.Component {
     }
 
     handleClick1() {
-
+        console.log("clicked SGD price");
         let listOfCurrency = [];
         for (let i = 0; i < this.props.listOfPrice.length; i++) {
             let repeated = false;
@@ -38,32 +38,32 @@ class Sgdprice extends React.Component {
         }
 
         let reactThis = this;
-
         let templistOfSgdPrice = [];
         for (let i = 0; i < listOfCurrency.length; i++) {
-            let url = "/queryExchangeRate?search=" + listOfCurrency[i];
-            let reqListener = function () {
-                let data = JSON.parse(this.responseText)["Realtime Currency Exchange Rate"];
-                for (let j = 0; j < reactThis.props.listOfPrice.length; j++) {
-                    if (listOfCurrency[i] == reactThis.props.listOfPrice[j]["buy_item"]["currency"]) {
-                        let obj = {
-                            buy_item: reactThis.props.listOfPrice[j]["buy_item"],
-                            dividend: reactThis.props.listOfPrice[j]["dividend"],
-                            price: reactThis.props.listOfPrice[j]["price"],
-                            exchange_rate: parseFloat(data["5. Exchange Rate"]),
+            setTimeout(function() {
+                let url = "/queryExchangeRate?search=" + listOfCurrency[i];
+                let reqListener = function () {
+                    let data = JSON.parse(this.responseText)["Realtime Currency Exchange Rate"];
+                    for (let j = 0; j < reactThis.props.listOfPrice.length; j++) {
+                        if (listOfCurrency[i] == reactThis.props.listOfPrice[j]["buy_item"]["currency"]) {
+                            let obj = {
+                                buy_item: reactThis.props.listOfPrice[j]["buy_item"],
+                                dividend: reactThis.props.listOfPrice[j]["dividend"],
+                                price: reactThis.props.listOfPrice[j]["price"],
+                                exchange_rate: parseFloat(data["5. Exchange Rate"]),
+                            }
+                            console.log(obj);
+                            templistOfSgdPrice.push(Object.assign({}, obj));
+                            reactThis.setState({listOfSgdPrice: templistOfSgdPrice});
                         }
-                        console.log(obj)
-                        templistOfSgdPrice.push(Object.assign({}, obj));
-                        reactThis.setState({listOfSgdPrice: templistOfSgdPrice});
                     }
                 }
-            }
-            let oReq = new XMLHttpRequest();
-            oReq.addEventListener("load", reqListener);
-            oReq.open("GET", url);
-            oReq.send();
-        }
-
+                let oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", reqListener);
+                oReq.open("GET", url);
+                oReq.send();
+            }, i * 15000)
+        };
     }
 
     handleClick2(item) {
@@ -123,23 +123,27 @@ class Sgdprice extends React.Component {
         return (
                 <div className={styles.div}>
                     <div>
-                        <button onClick={this.handleClick1}> Calculate Current SGD Price </button>
+                        <button onClick={this.handleClick1}>
+                            Calculate Price in SGD
+                        </button>
                     </div>
                     {this.state.listOfSgdPrice.length == this.props.listOfPrice.length && <table className={styles.table}>
-                        <tr>
-                            <th className={styles.th} >Symbol</th>
-                            <th className={styles.th} >Date Of Purchase</th>
-                            <th className={styles.th}>No of stock</th>
-                            <th className={styles.th}>Bought Price Per Stock</th>
-                            <th className={styles.th}>Bought Price Per Stock</th>
-                            <th className={styles.th}>Current Price Per Stock</th>
-                            <th className={styles.th}>Current Price Per Stock</th>
-                            <th className={styles.th}>Dividend Per Stock</th>
-                            <th className={styles.th}>Dividend Per Stock</th>
-                            <th className={styles.th}> Gain (%)</th>
-                            <th className={styles.th}> Gain (%)</th>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th className={styles.th} >Symbol</th>
+                                <th className={styles.th} >Date Of Purchase</th>
+                                <th className={styles.th}>No of stock</th>
+                                <th className={styles.th}>Bought Price Per Stock</th>
+                                <th className={styles.th}>Bought Price Per Stock</th>
+                                <th className={styles.th}>Current Price Per Stock</th>
+                                <th className={styles.th}>Current Price Per Stock</th>
+                                <th className={styles.th}>Dividend Per Stock</th>
+                                <th className={styles.th}>Dividend Per Stock</th>
+                                <th className={styles.th}> Gain (%)</th>
+                                <th className={styles.th}> Gain (%)</th>
+                            </tr>
                             {itemsElements}
+                        </tbody>
                     </table>}
                     {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm} user_id={this.props.user_id}/>}
                 </div>

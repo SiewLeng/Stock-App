@@ -9,7 +9,7 @@ class Modal extends React.Component {
 
     render() {
 
-        let url = "/addStock/" +  this.props.company["1. symbol"] + "/" + this.props.stock["05. price"];
+        let url = "/addStock";
         let price = this.props.company["8. currency"] + " " + this.props.stock["05. price"];
         return (
             <form className={styles.form} action = {url} method="POST">
@@ -35,6 +35,8 @@ class Modal extends React.Component {
                         <td className={styles.td}> <input className={styles.textinput} type="text" name="number" /> </td>
                     </tr>
                 </table>
+                <input type="hidden" name="user_id" value={this.props.user_id}/>
+                <input type="hidden" name="price" value={this.props.stock["05. price"]}/>
                 <input type="hidden" name="symbol" value={this.props.company["1. symbol"]}/>
                 <input type="hidden" name="name" value={this.props.company["2. name"]}/>
                 <input type="hidden" name="type" value={this.props.company["3. type"]}/>

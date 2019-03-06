@@ -32,7 +32,7 @@ class Sellform extends React.Component {
                             <label className={styles.label}> Date Of Purchase: </label>
                         </td>
                         <td className={styles.td}>
-                            {item["buy_item"]["purchase_date"]}
+                            {item["buy_item"]["purchase_date"].substring(0, 10)}
                         </td>
                     </tr>
                     <tr>
@@ -109,6 +109,7 @@ class Sellform extends React.Component {
                         </td>
                     </tr>
                 </table>
+                <input type="hidden" name="user_id" value={this.props.user_id}/>
                 <input type="hidden" name="buy_id" value={item["buy_item"]["buy_id"]}/>
                 <input type="hidden" name="company_id" value={item["buy_item"]["company_id"]}/>
                 <input type="hidden" name="quantity" value={item["buy_item"]["quantity"]}/>

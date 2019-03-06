@@ -46,7 +46,12 @@ class Dividend extends React.Component {
                         let month = date.substring(5, 7);
                         let day = date.substring(8, 10);
                         for (let key in data) {
-                            if (!(key.substring(0, 4) == year && key.substring(5, 7) == month && key.substring(8, 10) == day) ) {
+                            if (key.substring(0, 4) == year && key.substring(5, 7) == month) {
+                                if (key.substring(8, 10) > day) {
+                                    dividend = dividend + parseFloat(data[key]["7. dividend amount"]);
+                                }
+                            }
+                            else {
                                 dividend = dividend + parseFloat(data[key]["7. dividend amount"]);
                             }
                             if (key.substring(0, 4) == year && key.substring(5, 7) == month) {
@@ -102,7 +107,7 @@ class Dividend extends React.Component {
                         {listOfElement1}
                     </table>}
                 </div>
-                {this.state.listOfDividend.length > 0 && < Price listOfDividend={this.state.listOfDividend}/>}
+                {this.state.listOfDividend.length > 0 && <Price listOfDividend={this.state.listOfDividend} user_id={this.props.user_id}/>}
             </div>
         );
     }

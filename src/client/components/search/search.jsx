@@ -5,8 +5,8 @@ import styles from './style.scss';
 import Stock from '../stock/stock';
 
 class Search extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             word: '',
             listOfCompany: [],
@@ -98,7 +98,7 @@ class Search extends React.Component {
                     </table>}
                 </div>
                 <div className={styles.div}>
-                    {this.state.showCompany && <Stock company={this.state.company}/>}
+                    {this.state.showCompany && <Stock company={this.state.company} user_id={this.props.user_id}/>}
                 </div>
             </div>
         );

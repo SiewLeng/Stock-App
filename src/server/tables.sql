@@ -1,4 +1,12 @@
 -- create pokemons table
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+	user_id SERIAL,
+	email TEXT PRIMARY KEY,
+	password TEXT
+);
+
 DROP TABLE IF EXISTS company;
 
 CREATE TABLE IF NOT EXISTS company (
@@ -16,6 +24,7 @@ CREATE TABLE IF NOT EXISTS company (
 DROP TABLE IF EXISTS buy;
 
 CREATE TABLE IF NOT EXISTS buy (
+	user_id INTEGER,
 	buy_id SERIAL PRIMARY KEY,
 	company_symbol TEXT,
 	quantity INTEGER,
@@ -28,6 +37,7 @@ CREATE TABLE IF NOT EXISTS buy (
 DROP TABLE IF EXISTS sold;
 
 CREATE TABLE IF NOT EXISTS sold (
+	user_id INTEGER,
 	sold_id SERIAL PRIMARY KEY,
 	company_id INTEGER,
 	quantity INTEGER,

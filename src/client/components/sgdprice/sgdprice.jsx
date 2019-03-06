@@ -114,7 +114,7 @@ class Sgdprice extends React.Component {
                         { "(SGD)\n" + (((item["price"]+item["dividend"]) * item["exchange_rate"] -item["buy_item"]["price_sgd"]) / item["buy_item"]["price_sgd"] *100).toFixed(2) }
                     </td>
                     <td>
-                        <button onClick={()=>this.handleClick2(item)}> Sell </button>
+                        <button className={styles.sellbutton} onClick={()=>this.handleClick2(item)}> Sell </button>
                     </td>
                 </tr>
             );
@@ -141,7 +141,7 @@ class Sgdprice extends React.Component {
                         </tr>
                             {itemsElements}
                     </table>}
-                    {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm}/>}
+                    {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm} user_id={this.props.user_id}/>}
                 </div>
         );
     }

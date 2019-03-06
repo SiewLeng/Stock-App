@@ -99,7 +99,7 @@ class Price extends React.Component {
                         </tr>
                             {itemsElements}
                     </table>}
-                    {this.state.listOfPrice.length > 0 && <Sgdprice listOfPrice={this.state.listOfPrice}/>}
+                    {this.state.listOfPrice.length > 0 && <Sgdprice listOfPrice={this.state.listOfPrice} user_id={this.props.user_id}/>}
                 </div>
         );
     }

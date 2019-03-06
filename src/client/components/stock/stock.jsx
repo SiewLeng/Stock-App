@@ -111,7 +111,7 @@ class Stock extends React.Component {
                 {this.state.show && <Chart graph={this.state.graph}/>}
                 {this.state.show && <button className={styles.formButton1} onClick={this.handleClick2} > Buy </button>}
                 {this.state.show && <button className={styles.formButton2} onClick={this.handleClick3} > Cancel </button>}
-                {this.state.showForm && <Modal company={this.props.company} stock={this.state.stockEndPoint}/>}
+                {this.state.showForm && <Modal company={this.props.company} stock={this.state.stockEndPoint} user_id={this.props.user_id}/>}
             </div>
         )
     }

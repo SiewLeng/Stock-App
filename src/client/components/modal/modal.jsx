@@ -2,6 +2,8 @@ import React from 'react';
 
 import styles from './style.scss';
 
+import PropTypes from 'prop-types';
+
 class Modal extends React.Component {
     constructor(props) {
         super(props);
@@ -14,26 +16,28 @@ class Modal extends React.Component {
         return (
             <form className={styles.form} action = {url} method="POST">
                 <table>
-                    <tr>
-                        <td className={styles.td}> <label className={styles.label}> Symbol: </label> </td>
-                        <td className={styles.td}> {this.props.company["1. symbol"]} </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> <label className={styles.label}> Name: </label> </td>
-                        <td className={styles.td}> {this.props.company["2. name"]} </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> <label className={styles.label}> Region: </label> </td>
-                        <td className={styles.td}> {this.props.company["4. region"]} </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> <label className={styles.label}> Price per stock: </label> </td>
-                        <td className={styles.td}> {price} </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> <label className={styles.label}> No of stock: </label> </td>
-                        <td className={styles.td}> <input className={styles.textinput} type="text" name="number" /> </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className={styles.td}> <label className={styles.label}> Symbol: </label> </td>
+                            <td className={styles.td}> {this.props.company["1. symbol"]} </td>
+                        </tr>
+                        <tr>
+                            <td className={styles.td}> <label className={styles.label}> Name: </label> </td>
+                            <td className={styles.td}> {this.props.company["2. name"]} </td>
+                        </tr>
+                        <tr>
+                            <td className={styles.td}> <label className={styles.label}> Region: </label> </td>
+                            <td className={styles.td}> {this.props.company["4. region"]} </td>
+                        </tr>
+                        <tr>
+                            <td className={styles.td}> <label className={styles.label}> Price per stock: </label> </td>
+                            <td className={styles.td}> {price} </td>
+                        </tr>
+                        <tr>
+                            <td className={styles.td}> <label className={styles.label}> No of stock: </label> </td>
+                            <td className={styles.td}> <input className={styles.textinput} type="text" name="number" /> </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <input type="hidden" name="user_id" value={this.props.user_id}/>
                 <input type="hidden" name="price" value={this.props.stock["05. price"]}/>
@@ -52,3 +56,9 @@ class Modal extends React.Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  company: PropTypes.object,
+  stock: PropTypes.object,
+  user_id: PropTypes.number,
+};

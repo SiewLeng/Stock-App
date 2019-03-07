@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import styles from './style.scss';
 
 import Stock from '../stock/stock';
@@ -86,15 +88,19 @@ class Search extends React.Component {
                 </div>
                 <div className={styles.div}>
                     {this.state.showTable && <table className={styles.table}>
-                        <tr>
-                            <th className={styles.th} >Symbol</th>
-                            <th className={styles.th}>Name</th>
-                            <th className={styles.th}>Type</th>
-                            <th className={styles.th} >Region</th>
-                            <th className={styles.th} >Currency</th>
-                            <th className={styles.th} ></th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th className={styles.th} >Symbol</th>
+                                <th className={styles.th}>Name</th>
+                                <th className={styles.th}>Type</th>
+                                <th className={styles.th} >Region</th>
+                                <th className={styles.th} >Currency</th>
+                                <th className={styles.th} ></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {itemsElements}
+                        </tbody>
                     </table>}
                 </div>
                 <div className={styles.div}>
@@ -106,3 +112,7 @@ class Search extends React.Component {
 }
 
 export default Search;
+
+Search.propTypes = {
+  user_id: PropTypes.number,
+};

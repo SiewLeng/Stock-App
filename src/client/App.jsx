@@ -100,7 +100,6 @@ class App extends React.Component {
                 </nav>
                 <div>
                     <h3> {this.state.message} </h3>
-                    {this.state.user_id && <h3> {this.state.user_id} </h3>}
                 </div>
                 <div>
                     {this.state.user_id && this.state.showSearch && <Search user_id={this.state.user_id}/>}

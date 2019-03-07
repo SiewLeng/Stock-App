@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import styles from './style.scss';
 
 import Chart from '../chart/chart';
@@ -61,52 +63,60 @@ class Stock extends React.Component {
         return (
             <div>
                 <table className={styles.table}>
-                    <tr>
-                        <th className={styles.th} >Symbol</th>
-                        <th className={styles.th}>Name</th>
-                        <th className={styles.th}>Type</th>
-                        <th className={styles.th} >Region</th>
-                        <th className={styles.th} >Market Open</th>
-                        <th className={styles.th} >Market Close</th>
-                        <th className={styles.th} >Timezone</th>
-                        <th className={styles.th} >Currency</th>
-                        <th className={styles.th} ></th>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> {this.props.company["1. symbol"]} </td>
-                        <td className={styles.td}> {this.props.company["2. name"]} </td>
-                        <td className={styles.td}> {this.props.company["3. type"]} </td>
-                        <td className={styles.td}> {this.props.company["4. region"]} </td>
-                        <td className={styles.td}> {this.props.company["5. marketOpen"]} </td>
-                        <td className={styles.td}> {this.props.company["6. marketClose"]} </td>
-                        <td className={styles.td}> {this.props.company["7. timezone"]} </td>
-                        <td className={styles.td}> {this.props.company["8. currency"]} </td>
-                        <td> <button className={styles.button} onClick={this.handleClick1}> More Details </button> </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th className={styles.th} >Symbol</th>
+                            <th className={styles.th}>Name</th>
+                            <th className={styles.th}>Type</th>
+                            <th className={styles.th} >Region</th>
+                            <th className={styles.th} >Market Open</th>
+                            <th className={styles.th} >Market Close</th>
+                            <th className={styles.th} >Timezone</th>
+                            <th className={styles.th} >Currency</th>
+                            <th className={styles.th} ></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className={styles.td}> {this.props.company["1. symbol"]} </td>
+                            <td className={styles.td}> {this.props.company["2. name"]} </td>
+                            <td className={styles.td}> {this.props.company["3. type"]} </td>
+                            <td className={styles.td}> {this.props.company["4. region"]} </td>
+                            <td className={styles.td}> {this.props.company["5. marketOpen"]} </td>
+                            <td className={styles.td}> {this.props.company["6. marketClose"]} </td>
+                            <td className={styles.td}> {this.props.company["7. timezone"]} </td>
+                            <td className={styles.td}> {this.props.company["8. currency"]} </td>
+                            <td> <button className={styles.button} onClick={this.handleClick1}> More Details </button> </td>
+                        </tr>
+                    </tbody>
                 </table>
                 {this.state.show && <table className={styles.table}>
-                    <tr>
-                        <th className={styles.th} >Open</th>
-                        <th className={styles.th} >High</th>
-                        <th className={styles.th} >Low</th>
-                        <th className={styles.th} >Price</th>
-                        <th className={styles.th} >Volume</th>
-                        <th className={styles.th} >Latest Trading Day</th>
-                        <th className={styles.th} >Previous Close</th>
-                        <th className={styles.th} >Change</th>
-                        <th className={styles.th} >Change Percent</th>
-                    </tr>
-                    <tr>
-                        <td className={styles.td}> {this.state.stockEndPoint["02. open"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["03. high"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["04. low"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["05. price"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["06. volume"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["07. latest trading day"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["08. previous close"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["09. change"]} </td>
-                        <td className={styles.td}> {this.state.stockEndPoint["10. change percent"]} </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th className={styles.th} >Open</th>
+                            <th className={styles.th} >High</th>
+                            <th className={styles.th} >Low</th>
+                            <th className={styles.th} >Price</th>
+                            <th className={styles.th} >Volume</th>
+                            <th className={styles.th} >Latest Trading Day</th>
+                            <th className={styles.th} >Previous Close</th>
+                            <th className={styles.th} >Change</th>
+                            <th className={styles.th} >Change Percent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className={styles.td}> {this.state.stockEndPoint["02. open"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["03. high"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["04. low"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["05. price"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["06. volume"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["07. latest trading day"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["08. previous close"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["09. change"]} </td>
+                            <td className={styles.td}> {this.state.stockEndPoint["10. change percent"]} </td>
+                        </tr>
+                    </tbody>
                 </table>}
                 {this.state.show && <Chart graph={this.state.graph}/>}
                 {this.state.show && <button className={styles.formButton1} onClick={this.handleClick2} > Buy </button>}
@@ -118,3 +128,8 @@ class Stock extends React.Component {
 }
 
 export default Stock;
+
+Stock.propTypes = {
+  company: PropTypes.object,
+  user_id: PropTypes.number,
+};

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import styles from './style.scss';
 
-import main_styles from '../../style.scss';
-
 import Sellform from '../sellform/sellform';
 
 class Sgdprice extends React.Component {
@@ -22,7 +20,6 @@ class Sgdprice extends React.Component {
     }
 
     handleClick1() {
-        console.log("clicked SGD price");
         let listOfCurrency = [];
         for (let i = 0; i < this.props.listOfPrice.length; i++) {
             let repeated = false;
@@ -52,7 +49,6 @@ class Sgdprice extends React.Component {
                                 price: reactThis.props.listOfPrice[j]["price"],
                                 exchange_rate: parseFloat(data["5. Exchange Rate"]),
                             }
-                            console.log(obj);
                             templistOfSgdPrice.push(Object.assign({}, obj));
                             reactThis.setState({listOfSgdPrice: templistOfSgdPrice});
                         }
@@ -63,7 +59,7 @@ class Sgdprice extends React.Component {
                 oReq.open("GET", url);
                 oReq.send();
             }, i * 15000)
-        };
+        }
     }
 
     handleClick2(item) {
@@ -152,3 +148,9 @@ class Sgdprice extends React.Component {
 }
 
 export default Sgdprice;
+
+Sgdprice.propTypes = {
+  name: PropTypes.string,
+  listOfPrice: PropTypes.array,
+  user_id: PropTypes.number,
+};

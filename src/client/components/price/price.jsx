@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import styles from './style.scss';
 
-import main_styles from '../../style.scss';
-
 import Sgdprice from '../sgdprice/sgdprice'
 
 class Price extends React.Component {
@@ -18,7 +16,6 @@ class Price extends React.Component {
     }
 
    handleClick1() {
-        console.log("clicked calculate price");
         let listOfSymbol = this.props.listOfSymbol;
         let reactThis = this;
         let templistOfPrice = [];
@@ -34,7 +31,6 @@ class Price extends React.Component {
                                 dividend: reactThis.props.listOfDividend[j]["dividend"],
                                 price: parseFloat(data["05. price"]),
                             }
-                            console.log(obj);
                             templistOfPrice.push(Object.assign({}, obj));
                             reactThis.setState({listOfPrice: templistOfPrice});
                         }
@@ -95,3 +91,9 @@ class Price extends React.Component {
 }
 
 export default Price;
+
+Price.propTypes = {
+  listOfSymbol: PropTypes.array,
+  listOfDividend: PropTypes.array,
+  user_id: PropTypes.number,
+};

@@ -4,6 +4,8 @@ import styles from './style.scss';
 
 import {Line} from 'react-chartjs-2';
 
+import PropTypes from 'prop-types';
+
 class Chart extends React.Component {
     constructor(props) {
         super(props);
@@ -59,3 +61,7 @@ class Chart extends React.Component {
 }
 
 export default Chart;
+
+Chart.propTypes = {
+    graph: PropTypes.object,
+}

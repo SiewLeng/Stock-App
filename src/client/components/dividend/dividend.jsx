@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import styles from './style.scss';
 
-import main_styles from '../../style.scss';
-
 import Price from '../price/price';
 
 class Dividend extends React.Component {
@@ -19,7 +17,6 @@ class Dividend extends React.Component {
     }
 
     handleClick1 () {
-        console.log("clicked button");
         let listOfSymbol = [];
         for (let i = 0; i < this.props.listOfBuy.length; i++) {
             let repeated = false;
@@ -66,7 +63,6 @@ class Dividend extends React.Component {
                                 buy_item: reactThis.props.listOfBuy[j],
                                 dividend: dividend,
                             }
-                            console.log(obj);
                             templistOfDividend.push(Object.assign({}, obj));
                             reactThis.setState({listOfDividend: templistOfDividend});
                         }
@@ -77,7 +73,7 @@ class Dividend extends React.Component {
                 oReq.open("GET", url);
                 oReq.send();
             }, i * 12000)
-        };
+        }
     }
 
     render() {
@@ -125,3 +121,8 @@ class Dividend extends React.Component {
 }
 
 export default Dividend;
+
+Dividend.propTypes = {
+  listOfBuy: PropTypes.array,
+  user_id: PropTypes.number,
+};

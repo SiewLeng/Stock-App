@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import styles from './style.scss';
 
-import main_styles from '../../style.scss';
-
 import Dividend from '../dividend/dividend';
 
 class Portfolio extends React.Component {
@@ -56,21 +54,28 @@ class Portfolio extends React.Component {
                 </div>
                 <div className={styles.div}>
                     {this.state.listOfBuy.length > 0 && <table className={styles.table}>
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th className={styles.th} >Symbol</th>
                                 <th className={styles.th} >Date Of Purchase</th>
                                 <th className={styles.th}>No of stock</th>
                                 <th className={styles.th}>Bought Price Per Stock</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {itemsElements}
                         </tbody>
                     </table>}
                 </div>
-                {this.state.listOfBuy.length > 0 && < Dividend listOfBuy={this.state.listOfBuy} user_id={this.props.user_id}/>}
+                {this.state.listOfBuy.length > 0 &&
+                    < Dividend listOfBuy={this.state.listOfBuy} user_id={this.props.user_id} />}
             </div>
         );
     }
 }
 
 export default Portfolio;
+
+Portfolio.propTypes = {
+  user_id: PropTypes.number,
+};

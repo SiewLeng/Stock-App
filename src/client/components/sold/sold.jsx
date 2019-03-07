@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 
 import styles from './style.scss';
 
-import main_styles from '../../style.scss';
-
-
 class Sold extends React.Component {
     constructor(props) {
         super(props);
@@ -21,7 +18,6 @@ class Sold extends React.Component {
         this.setState({listOfSold: []});
         let reqListener = function () {
             let data = JSON.parse(this.responseText);
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 reactThis.setState({listOfSold: [Object.assign({},data[i]), ...reactThis.state.listOfSold]});
             }
@@ -87,7 +83,7 @@ class Sold extends React.Component {
                 </div>
                 <div className={styles.div}>
                     <table>
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th className={styles.th} >Symbol</th>
                                 <th className={styles.th} >Date Of Purchase</th>
@@ -102,6 +98,8 @@ class Sold extends React.Component {
                                 <th className={styles.th}> Gain (%)</th>
                                 <th className={styles.th}> Gain (%)</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {itemsElements}
                         </tbody>
                     </table>
@@ -112,3 +110,7 @@ class Sold extends React.Component {
 }
 
 export default Sold;
+
+Sold.propTypes = {
+  user_id: PropTypes.number,
+};

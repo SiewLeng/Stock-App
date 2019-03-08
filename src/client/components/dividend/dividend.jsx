@@ -72,7 +72,7 @@ class Dividend extends React.Component {
                 oReq.addEventListener("load", reqListener);
                 oReq.open("GET", url);
                 oReq.send();
-            }, i * 12000)
+            }, i * 15000)
         }
     }
 

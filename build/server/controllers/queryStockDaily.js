@@ -3,7 +3,7 @@ const request = require('request');
 module.exports = (db) => {
 
     let get = (req, res) => {
-        let apiKey = "F50ZLADJBWFCDCWT";
+        let apiKey = process.env.API_KEY1;
         let query = req.query.search;
         let url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${query}&apikey=${apiKey}`;
 

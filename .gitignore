@@ -93,3 +93,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisknode_modules
+
+#Ignore env file
+.env

@@ -3,7 +3,7 @@ const request = require('request');
 module.exports = (db) => {
 
     let get = (req, res) => {
-        let apiKey = "JGN88KIC681D1T4W";
+        let apiKey = process.env.API_KEY2;
         let query = req.query.search;
         let url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${query}&to_currency=SGD&apikey=${apiKey}`;
 

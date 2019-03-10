@@ -31,16 +31,16 @@ module.exports = (db) => {
         db.sell.create(user_id, buy_id, company_id, quantity, purchase_date, purchase_date_zone, buy_price_sgd, buy_price, sold_price_sgd, sold_price, dividend_sgd, dividend, (err, queryResult)=> {
             if (err) {
                 console.log(err);
+                response.send({sellCreated: false});
             }
             else {
                 if (queryResult.rowCount > 0) {
-                    console.log("Delete buy and create sell is successful");
+                    response.send({sellCreated: true});
                 }
                 else {
-                    console.log("Cannot create buy and sell");
+                    response.send({sellCreated: false});
                 }
             }
-            response.redirect('/');
         })
     }
 

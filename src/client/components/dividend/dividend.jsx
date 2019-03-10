@@ -114,7 +114,7 @@ class Dividend extends React.Component {
                 </div>
                 {this.state.listOfDividend.length == this.props.listOfBuy.length &&
                     <Price listOfDividend={this.state.listOfDividend} user_id={this.props.user_id}
-                        listOfSymbol={this.state.listOfSymbol}/>}
+                        listOfSymbol={this.state.listOfSymbol} closePortfolio={this.props.closePortfolio}/>}
             </div>
         );
     }
@@ -125,4 +125,5 @@ export default Dividend;
 Dividend.propTypes = {
   listOfBuy: PropTypes.array,
   user_id: PropTypes.number,
+  closePortfolio: PropTypes.func,
 };

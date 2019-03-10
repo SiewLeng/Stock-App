@@ -12,10 +12,10 @@ class Price extends React.Component {
         this.state = {
             listOfPrice: [],
         }
-        this. handleClick1 = this.handleClick1.bind(this)
+        this.handleClick1 = this.handleClick1.bind(this);
     }
 
-   handleClick1() {
+    handleClick1() {
         let listOfSymbol = this.props.listOfSymbol;
         let reactThis = this;
         let templistOfPrice = [];
@@ -84,7 +84,7 @@ class Price extends React.Component {
                         </tbody>
                     </table>}
                     {this.state.listOfPrice.length == this.props.listOfDividend.length
-                        && <Sgdprice listOfPrice={this.state.listOfPrice} user_id={this.props.user_id} listOfSymbol={this.props.listOfSymbol}/>}
+                        && <Sgdprice listOfPrice={this.state.listOfPrice} user_id={this.props.user_id} listOfSymbol={this.props.listOfSymbol} closePortfolio={this.props.closePortfolio}/>}
                 </div>
         );
     }
@@ -96,4 +96,5 @@ Price.propTypes = {
   listOfSymbol: PropTypes.array,
   listOfDividend: PropTypes.array,
   user_id: PropTypes.number,
+  closePortfolio: PropTypes.func,
 };

@@ -29,6 +29,7 @@ class App extends React.Component {
         this.setUserId = this.setUserId.bind(this);
         this.closeLogin = this.closeLogin.bind(this);
         this.closeRegister = this.closeRegister.bind(this);
+        this.closePortfolio = this.closePortfolio.bind(this);
     }
 
     closeLogin() {
@@ -37,6 +38,10 @@ class App extends React.Component {
 
     closeRegister() {
         this.setState({showRegister: false});
+    }
+
+    closePortfolio() {
+        this.setState({showPortfolio: false});
     }
 
     setMessage(message) {
@@ -105,7 +110,7 @@ class App extends React.Component {
                     {this.state.user_id && this.state.showSearch && <Search user_id={this.state.user_id}/>}
                 </div>
                 <div>
-                    {this.state.user_id && this.state.showPortfolio && <Portfolio user_id={this.state.user_id}/>}
+                    {this.state.user_id && this.state.showPortfolio && <Portfolio user_id={this.state.user_id} closePortfolio={this.closePortfolio}/>}
                 </div>
                 <div>
                     {this.state.user_id && this.state.showSold && <Sold user_id={this.state.user_id}/>}
@@ -114,7 +119,7 @@ class App extends React.Component {
                     {this.state.showLogin && <Login setMessage={this.setMessage} setUserId={this.setUserId} closeLogin={this.closeLogin}/>}
                 </div>
                 <div>
-                    {this.state.showRegister && <Register/>}
+                    {this.state.showRegister && <Register setMessage={this.setMessage} closeRegister={this.closeRegister}/>}
                 </div>
             </div>
         );

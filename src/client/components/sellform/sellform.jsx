@@ -7,19 +7,38 @@ import styles from './style.scss';
 class Sellform extends React.Component {
     constructor(props) {
         super(props);
-        this.handelClick1 = this.handelClick1.bind(this);
+        this.handleClick1 = this.handleClick1.bind(this);
+        this.handleClick2 = this.handleClick2.bind(this);
     }
 
-    handelClick1() {
+    handleClick1() {
         this.props.closeSellForm();
+    }
+
+     handleClick2(item) {
+        let reactThis = this;
+        let url = "/addSold";
+        let reqListener = function () {
+            let data = JSON.parse(this.responseText);
+            if (data.sellCreated==true) {
+                reactThis.props.closePortfolio();
+            }
+            else {
+                reactThis.props.setMessage("Stock is not sold successfully.");
+            }
+        }
+
+        let oReq = new XMLHttpRequest();
+            oReq.addEventListener("load", reqListener);
+            oReq.open("POST", url, true);
+            oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            oReq.send(`user_id=${this.props.user_id}&buy_id=${item["buy_item"]["buy_id"]}&company_id=${item["buy_item"]["company_id"]}&quantity=${item["buy_item"]["quantity"]}&purchase_date=${item["buy_item"]["purchase_date"]}&purchase_date_zone=${item["buy_item"]["purchase_date_zone"]}&buy_price_sgd=${item["buy_item"]["price_sgd"]}&buy_price=${item["buy_item"]["price"]}&sold_price_sgd=${item["price"] * item["exchange_rate"]}&sold_price=${item["price"]}&dividend_sgd=${item["dividend"] * item["exchange_rate"]}&dividend=${item["dividend"]}`);
     }
 
     render() {
         let item = this.props.sellItem;
-        let url = "/addSold";
         return (
-            <div>
-            <form className={styles.form} action = {url} method="POST">
+            <div className={styles.form}>
                 <table>
                     <tbody>
                         <tr>
@@ -112,21 +131,8 @@ class Sellform extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <input type="hidden" name="user_id" value={this.props.user_id}/>
-                <input type="hidden" name="buy_id" value={item["buy_item"]["buy_id"]}/>
-                <input type="hidden" name="company_id" value={item["buy_item"]["company_id"]}/>
-                <input type="hidden" name="quantity" value={item["buy_item"]["quantity"]}/>
-                <input type="hidden" name="purchase_date" value={item["buy_item"]["purchase_date"]}/>
-                <input type="hidden" name="purchase_date_zone" value={item["buy_item"]["purchase_date_zone"]}/>
-                <input type="hidden" name="buy_price_sgd" value={item["buy_item"]["price_sgd"]}/>
-                <input type="hidden" name="buy_price" value={item["buy_item"]["price"]}/>
-                <input type="hidden" name="sold_price_sgd" value={item["price"] * item["exchange_rate"]}/>
-                <input type="hidden" name="sold_price" value={item["price"]}/>
-                <input type="hidden" name="dividend_sgd" value={item["dividend"] * item["exchange_rate"]}/>
-                <input type="hidden" name="dividend" value={item["dividend"]}/>
-                <input className={styles.button} type="submit" value="Submit" />
-                <button onClick={this.handelClick1} className={styles.button} > Cancel Sell </button>
-            </form>
+                <button onClick={()=>this.handleClick2(item)} className={styles.button}> Submit </button>
+                <button onClick={this.handleClick1} className={styles.button}> Cancel Sell </button>
             </div>
         )
     }
@@ -138,4 +144,6 @@ Sellform.propTypes = {
   closeSellForm: PropTypes.func,
   sellItem: PropTypes.object,
   user_id: PropTypes.number,
+  setMessage: PropTypes.func,
+  closePortfolio: PropTypes.func,
 };

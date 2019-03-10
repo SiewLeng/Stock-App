@@ -25,12 +25,7 @@ module.exports = (db) => {
                 response.sendStatus(500);
             }
             else {
-                if (userCreated) {
-                    response.redirect('/');
-                }
-                else {
-                    response.send("User cannot be created. Please visit the homepage again and register with another email.");
-                }
+                response.send(userCreated);
             }
         })
     }

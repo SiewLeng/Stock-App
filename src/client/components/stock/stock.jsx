@@ -15,11 +15,13 @@ class Stock extends React.Component {
             stockEndPoint: {},
             graph: {},
             show: false,
-            showForm: false
+            showForm: false,
+            message: "",
         }
         this.handleClick1 = this.handleClick1.bind(this);
         this.handleClick2 = this.handleClick2.bind(this);
         this.handleClick3 = this.handleClick3.bind(this);
+        this.setMessage = this.setMessage.bind(this);
     }
 
     handleClick1() {
@@ -59,9 +61,14 @@ class Stock extends React.Component {
         this.setState({showForm: false});
     }
 
+    setMessage(text) {
+        this.setState({message: text});
+    }
+
     render() {
         return (
             <div>
+                <h2>{this.state.message}</h2>
                 <table className={styles.table}>
                     <thead>
                         <tr>
@@ -121,7 +128,7 @@ class Stock extends React.Component {
                 {this.state.show && <Chart graph={this.state.graph}/>}
                 {this.state.show && <button className={styles.formButton1} onClick={this.handleClick2} > Buy </button>}
                 {this.state.show && <button className={styles.formButton2} onClick={this.handleClick3} > Cancel </button>}
-                {this.state.showForm && <Modal company={this.props.company} stock={this.state.stockEndPoint} user_id={this.props.user_id}/>}
+                {this.state.showForm && <Modal company={this.props.company} stock={this.state.stockEndPoint} user_id={this.props.user_id} closeModal={this.handleClick3} setMessage={this.setMessage}/>}
             </div>
         )
     }

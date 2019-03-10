@@ -13,10 +13,12 @@ class Sgdprice extends React.Component {
             listOfSgdPrice: [],
             sellItem:{},
             showSellForm: false,
+            message: "",
         }
         this.handleClick1 = this.handleClick1.bind(this);
         this.handleClick2 = this.handleClick2.bind(this);
         this.closeSellForm = this.closeSellForm.bind(this);
+        this.setMessage = this.setMessage.bind(this);
     }
 
     handleClick1() {
@@ -71,8 +73,11 @@ class Sgdprice extends React.Component {
         this.setState({showSellForm: false});
     }
 
-    render() {
+    setMessage(text) {
+        this.setState({message: text});
+    }
 
+    render() {
         let itemsElements = this.state.listOfSgdPrice.map( (item, index) => {
             return (
                 <tr key={index}>
@@ -123,6 +128,7 @@ class Sgdprice extends React.Component {
                             Calculate Price in SGD
                         </button>
                     </div>
+                    <h2>{this.state.message}</h2>
                     {this.state.listOfSgdPrice.length == this.props.listOfPrice.length && <table className={styles.table}>
                         <tbody>
                             <tr>
@@ -141,7 +147,7 @@ class Sgdprice extends React.Component {
                             {itemsElements}
                         </tbody>
                     </table>}
-                    {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm} user_id={this.props.user_id}/>}
+                    {this.state.showSellForm && <Sellform sellItem={this.state.sellItem} closeSellForm={this.closeSellForm} user_id={this.props.user_id} setMessage={this.setMessage} closePortfolio={this.props.closePortfolio}/>}
                 </div>
         );
     }
@@ -153,4 +159,5 @@ Sgdprice.propTypes = {
   name: PropTypes.string,
   listOfPrice: PropTypes.array,
   user_id: PropTypes.number,
+  closePortfolio: PropTypes.func,
 };

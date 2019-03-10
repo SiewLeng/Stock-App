@@ -30,30 +30,28 @@ module.exports = (db) => {
             currency: req.body["currency"],
         };
 
-        let apiKey = "F50ZLADJBWFCDCWT";
+        let apiKey = process.env.API_KEY2;;
         let url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${company["currency"]}&to_currency=SGD&apikey=${apiKey}`;
+        setTimeout(function() {
+            request(url, function (error, queryResponse, body) {
+                console.log('error:', error); // Print the error if one occurred and handle it
+                console.log('statusCode:', queryResponse && queryResponse.statusCode); // Print the response status code if a response was received
+                let exchangeRate = JSON.parse(body)["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+                let priceSGD = "" + (parseFloat(exchangeRate) * parseFloat(price));
 
-        request(url, function (error, queryResponse, body) {
-            console.log('error:', error); // Print the error if one occurred and handle it
-            console.log('statusCode:', queryResponse && queryResponse.statusCode); // Print the response status code if a response was received
-            let exchangeRate = JSON.parse(body)["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-            let priceSGD = "" + (parseFloat(exchangeRate) * parseFloat(price));
-
-            db.buy.create(user_id, symbol, price, priceSGD, numOfStock, company, (error, queryResult) => {
-                if (error) {
-                    console.error('error getting buy:', error);
-                    res.sendStatus(500);
-                }
-                if (queryResult.rowCount >= 1) {
-                    console.log('Buy created successfully');
-                }
-                else {
-                    console.log('Buy could not be created');
-                }
-                // redirect to home page after creation
-                res.redirect('/');
-            });
-        })
+                db.buy.create(user_id, symbol, price, priceSGD, numOfStock, company, (error, queryResult) => {
+                    if (error) {
+                        console.error('error getting buy:', error);
+                        res.sendStatus(500);
+                    }
+                    if (queryResult.rowCount >= 1) {
+                        res.send({buyCreated: true});
+                    }
+                    else {
+                        res.send({buyCreated: false});
+                    }
+                });
+            }) }, 12000)
     }
 
     return {

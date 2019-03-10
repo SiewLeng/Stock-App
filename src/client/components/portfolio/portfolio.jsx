@@ -35,7 +35,6 @@ class Portfolio extends React.Component {
     }
 
     render() {
-
         let itemsElements = this.state.listOfBuy.map( (item, index) => {
             return (
                 <tr key={index}>
@@ -68,7 +67,7 @@ class Portfolio extends React.Component {
                     </table>}
                 </div>
                 {this.state.listOfBuy.length > 0 &&
-                    < Dividend listOfBuy={this.state.listOfBuy} user_id={this.props.user_id} />}
+                    < Dividend listOfBuy={this.state.listOfBuy} user_id={this.props.user_id} closePortfolio={this.props.closePortfolio}/>}
             </div>
         );
     }
@@ -78,4 +77,5 @@ export default Portfolio;
 
 Portfolio.propTypes = {
   user_id: PropTypes.number,
+  closePortfolio: PropTypes.func,
 };
